@@ -19,6 +19,10 @@ class SecurityConfig(
             .csrf {
                 it.disable()
             }
+            .authorizeHttpRequests { authorize ->
+                authorize
+                    .anyRequest().permitAll()
+            }
             .httpBasic(Customizer.withDefaults())
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
         return http.build()
