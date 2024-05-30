@@ -23,7 +23,8 @@ class SecurityConfig(
             .authorizeHttpRequests { authorize ->
                 authorize
                     .requestMatchers(
-                        "/router/bus-schedule/list"
+                        "/router/bus-schedule/list",
+                        "/router/bus-schedule/revision"
                     ).permitAll()
                     .requestMatchers(
                         "/router/bus-schedule/update",

@@ -2,6 +2,7 @@ package com.alad1nks.dubovozki.controller
 
 import com.alad1nks.dubovozki.model.Bus
 import com.alad1nks.dubovozki.model.BusSchedule
+import com.alad1nks.dubovozki.model.Revision
 import com.alad1nks.dubovozki.service.BusScheduleService
 import org.springframework.web.bind.annotation.*
 
@@ -12,6 +13,9 @@ class BusScheduleController(
 ) {
     @GetMapping("/list")
     fun getBusSchedule(): BusSchedule = busScheduleService.getBusSchedule()
+
+    @GetMapping("/revision")
+    fun getBusScheduleRevision(): Revision = busScheduleService.getBusScheduleRevision()
 
     @PostMapping("/update")
     fun updateBusSchedule(
