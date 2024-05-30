@@ -26,7 +26,9 @@ class SecurityConfig(
                         "/router/bus-schedule/list"
                     ).permitAll()
                     .requestMatchers(
-                        "/router/bus-schedule/update"
+                        "/router/bus-schedule/update",
+                        "/router/user/create",
+                        "/router/user/list"
                     ).hasAnyAuthority(UserRole.ADMIN.name, UserRole.OWNER.name)
                     .anyRequest().hasAuthority(UserRole.OWNER.name)
             }
