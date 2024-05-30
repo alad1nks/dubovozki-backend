@@ -25,7 +25,10 @@ class SecurityConfig(
                     .requestMatchers(
                         "/router/bus-schedule/list"
                     ).permitAll()
-                    .anyRequest().hasAuthority(UserRole.ADMIN.name)
+                    .requestMatchers(
+                        "/router/bus-schedule/update"
+                    ).hasAnyAuthority(UserRole.ADMIN.name, UserRole.OWNER.name)
+                    .anyRequest().hasAuthority(UserRole.OWNER.name)
             }
             .httpBasic(Customizer.withDefaults())
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
