@@ -10,6 +10,7 @@ import com.alad1nks.dubovozki.security.JwtTokenUtil
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.convertValue
 import org.springframework.data.redis.core.RedisTemplate
+import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -52,10 +53,20 @@ class RegistrationService(
         return registrationStatus
     }
 
+    @Scheduled(fixedRate = 60000)
+    fun deleteExpiredEmailVerificationCodes() {
+        val registrationStatus = getRegistrationStatus()
+        val now = System.currentTimeMillis()
+        registrationStatus.values.forEach {
+            if (it.expiryDate < now) hashOperations.delete(EMAIL_VERIFICATION_CODE, it.email)
+        }
+    }
+
     private fun checkStatusAndSendCode(email: String) {
         if (email.isExpired()) {
             val code = CodeGenerator.verificationCode()
-            val expiryDate = Calendar.getInstance().timeInMillis + EXPIRATION_TIME_MS
+            val now = System.currentTimeMillis()
+            val expiryDate = now + EXPIRATION_TIME_MS
             val emailVerificationCode = EmailVerificationCode(email, code, expiryDate)
             emailSender.sendEmail(email, "Код активации", code)
             hashOperations.put(EMAIL_VERIFICATION_CODE, email, emailVerificationCode)
