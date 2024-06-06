@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 class SecurityConfig(
     val jwtAuthenticationFilter: JwtAuthenticationFilter
 ) {
+
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
@@ -24,10 +25,13 @@ class SecurityConfig(
                 authorize
                     .requestMatchers(
                         "/router/bus-schedule/list",
-                        "/router/bus-schedule/revision"
+                        "/router/bus-schedule/revision",
+                        "/router/registration/email/validate",
+                        "/router/registration/email/verify"
                     ).permitAll()
                     .requestMatchers(
                         "/router/bus-schedule/update",
+                        "/router/registration/status",
                         "/router/user/create",
                         "/router/user/list"
                     ).hasAnyAuthority(UserRole.ADMIN.name, UserRole.OWNER.name)

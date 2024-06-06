@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.env.Environment
 import org.springframework.stereotype.Component
 import java.nio.charset.StandardCharsets
+import java.util.*
 import javax.crypto.SecretKey
 
 @Component
@@ -15,6 +16,17 @@ class JwtTokenUtil(
 ) {
     val jwtSecret: String by lazy {
         env.getRequiredProperty("jwt.secret")
+    }
+
+    fun generateToken(email: String, role: String): String {
+        val now = Date()
+
+        return Jwts.builder()
+            .subject(email)
+            .claim("role", role)
+            .issuedAt(now)
+            .signWith(getSigningKey(), Jwts.SIG.HS256)
+            .compact()
     }
 
     fun validateToken(token: String): Boolean {
