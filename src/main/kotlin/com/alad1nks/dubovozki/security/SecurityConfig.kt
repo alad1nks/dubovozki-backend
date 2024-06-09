@@ -27,6 +27,7 @@ class SecurityConfig(
                         "/router/bus-schedule/list",
                         "/router/bus-schedule/list-pair",
                         "/router/bus-schedule/revision",
+                        "/router/castellan",
                         "/router/registration/email/validate",
                         "/router/registration/email/verify"
                     ).permitAll()
@@ -36,6 +37,7 @@ class SecurityConfig(
                     ).authenticated()
                     .requestMatchers(
                         "/router/bus-schedule/update",
+                        "/router/castellan/update",
                         "/router/random-coffee/add-words",
                         "/router/random-coffee/generate-pairs",
                         "/router/random-coffee/status",

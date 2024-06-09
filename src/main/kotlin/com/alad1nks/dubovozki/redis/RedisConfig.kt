@@ -1,5 +1,6 @@
 package com.alad1nks.dubovozki.redis
 
+import com.alad1nks.dubovozki.model.CastellanSchedule
 import com.alad1nks.dubovozki.model.EmailAndTelegramUsername
 import com.alad1nks.dubovozki.model.RandomCoffeeMatch
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -26,6 +27,11 @@ class RedisConfig {
 
     @Bean
     fun redisTemplateRandomCoffeeMatch(connectionFactory: RedisConnectionFactory): RedisTemplate<String, RandomCoffeeMatch> {
+        return createRedisTemplate(connectionFactory)
+    }
+
+    @Bean
+    fun redisTemplateCastellanSchedule(connectionFactory: RedisConnectionFactory): RedisTemplate<String, CastellanSchedule> {
         return createRedisTemplate(connectionFactory)
     }
 
