@@ -1,6 +1,6 @@
 package com.alad1nks.dubovozki.model
 
-data class CastellanDay(
+data class ServiceDay(
     val day: String,
     val work: String
 )
