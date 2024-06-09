@@ -25,6 +25,7 @@ class SecurityConfig(
                 authorize
                     .requestMatchers(
                         "/router/bus-schedule/list",
+                        "/router/bus-schedule/list-pair",
                         "/router/bus-schedule/revision",
                         "/router/registration/email/validate",
                         "/router/registration/email/verify"
