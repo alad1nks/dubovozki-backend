@@ -1,5 +1,7 @@
 package com.alad1nks.dubovozki.redis
 
+import com.alad1nks.dubovozki.model.EmailAndTelegramUsername
+import com.alad1nks.dubovozki.model.RandomCoffeeMatch
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
 import org.springframework.context.annotation.Bean
@@ -11,9 +13,24 @@ import org.springframework.data.redis.serializer.StringRedisSerializer
 
 @Configuration
 class RedisConfig {
+
     @Bean
     fun redisTemplate(connectionFactory: RedisConnectionFactory): RedisTemplate<String, Any> {
-        val template = RedisTemplate<String, Any>()
+        return createRedisTemplate(connectionFactory)
+    }
+
+    @Bean
+    fun redisTemplateEmailAndTelegramUsername(connectionFactory: RedisConnectionFactory): RedisTemplate<String, EmailAndTelegramUsername> {
+        return createRedisTemplate(connectionFactory)
+    }
+
+    @Bean
+    fun redisTemplateRandomCoffeeMatch(connectionFactory: RedisConnectionFactory): RedisTemplate<String, RandomCoffeeMatch> {
+        return createRedisTemplate(connectionFactory)
+    }
+
+    private fun <T> createRedisTemplate(connectionFactory: RedisConnectionFactory): RedisTemplate<String, T> {
+        val template = RedisTemplate<String, T>()
 
         val objectMapper = ObjectMapper()
         val module = SimpleModule()

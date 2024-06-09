@@ -30,7 +30,14 @@ class SecurityConfig(
                         "/router/registration/email/verify"
                     ).permitAll()
                     .requestMatchers(
+                        "/router/random-coffee/join",
+                        "/router/random-coffee/my-match"
+                    ).authenticated()
+                    .requestMatchers(
                         "/router/bus-schedule/update",
+                        "/router/random-coffee/add-words",
+                        "/router/random-coffee/generate-pairs",
+                        "/router/random-coffee/status",
                         "/router/registration/status",
                         "/router/user/create",
                         "/router/user/list"

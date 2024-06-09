@@ -85,6 +85,7 @@ class RegistrationService(
 
         if (emailVerificationCode.code != code) {
             incrementAttempts(email)
+
             return null
         }
 
